@@ -68,8 +68,12 @@ const howToSchema = {
       <div class="prose prose-invert prose-headings:text-amber-400 prose-a:text-amber-400 prose-table:text-sm max-w-none
                   prose-h2:mt-10 prose-h2:mb-3 prose-h3:mt-6 prose-table:border prose-table:border-stone-800
                   prose-th:border prose-th:border-stone-800 prose-th:bg-stone-900 prose-td:border prose-td:border-stone-800
-                  prose-headings:scroll-mt-8 prose-img:rounded-lg prose-img:border prose-img:border-stone-800 prose-img:mt-3 prose-img:mb-2
-                  [&_p:has(>img)]:mb-6 [&_p:has(>img)_em]:block [&_p:has(>img)_em]:text-xs [&_p:has(>img)_em]:text-stone-500 [&_p:has(>img)_em]:mt-2">
+                  prose-headings:scroll-mt-8 prose-headings:clear-both
+                  prose-img:rounded-lg prose-img:border prose-img:border-stone-800 prose-img:w-full prose-img:h-auto prose-img:m-0
+                  prose-img:cursor-zoom-in prose-img:transition-[filter] hover:prose-img:brightness-110
+                  [&_p:has(>img)]:float-right [&_p:has(>img)]:w-36 [&_p:has(>img)]:ml-4 [&_p:has(>img)]:mb-4
+                  [&_p:has(>img)_em]:block [&_p:has(>img)_em]:text-[10px] [&_p:has(>img)_em]:text-stone-500 [&_p:has(>img)_em]:mt-1.5 [&_p:has(>img)_em]:leading-snug
+                  max-sm:[&_p:has(>img)]:float-none max-sm:[&_p:has(>img)]:w-32 max-sm:[&_p:has(>img)]:mx-auto">
         <Content />
       </div>
 
