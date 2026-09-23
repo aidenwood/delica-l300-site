@@ -30,6 +30,9 @@ The manual splits this job into two different procedures: **duo-servo** (most 2W
 
 ## Removal steps
 
+![Factory manual exploded diagram — rear drum brake shoe, leading and trailing 4WD, page 35-79](/images/guides/rear-brake-shoes/manual-35-79-rear-brake-exploded.jpg)
+*Factory service manual (PWWE8608), page 35-79.*
+
 1. Remove the brake drum. **If it's stuck**, thread an M8 × 1.25 bolt into the hole on the drum flange and turn it in to push the drum off.
 2. Remove the lower shoe return spring.
 3. Remove the shoe hold-down cup, spring, and cup (lower shoe).
@@ -56,9 +59,15 @@ Reverse to reinstall. Adjust shoe outer diameter (see below) before final drum f
 
 ## Adjusting shoe outer diameter
 
+![Factory manual diagram — grease points, sealant, and shoe outer diameter adjustment, page 35-81](/images/guides/rear-brake-shoes/manual-35-81-grease-adjust.jpg)
+*Factory service manual (PWWE8608), page 35-81.*
+
 Turn the adjuster wheel to bring the shoe outer diameter to **253.45 ± 0.15 mm**.
 
 ## If you're also replacing the wheel cylinder
+
+![Factory manual diagram — brake drum removal and wheel cylinder return spring tool, page 35-83](/images/guides/rear-brake-shoes/manual-35-83-wheel-cylinder.jpg)
+*Factory service manual (PWWE8608), page 35-83.*
 
 1. Drain the brake fluid first (pre-removal).
 2. Remove the brake drum (same M8 bolt trick if stuck).

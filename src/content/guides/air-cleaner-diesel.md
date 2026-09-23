@@ -16,6 +16,9 @@ The manual splits this by engine, not just by year — petrol non-MPI, petrol MP
 
 ## Removal steps
 
+![Factory manual exploded diagram — air cleaner assembly (diesel), page 15-10](/images/guides/air-cleaner-diesel/manual-15-10-air-cleaner-exploded.jpg)
+*Factory service manual (PWWE8608), page 15-10.*
+
 1. Remove the air intake hose.
 2. Remove air duct C.
 3. Remove air duct B.
@@ -28,6 +31,9 @@ The manual splits this by engine, not just by year — petrol non-MPI, petrol MP
 Reverse the steps to reinstall — there are no special service points or torque callouts for this procedure, it's a straightforward reversal.
 
 ## Inspection
+
+![Factory manual diagram — inspection points and clearing a clogged element, page 15-11](/images/guides/air-cleaner-diesel/manual-15-11-inspection.jpg)
+*Factory service manual (PWWE8608), page 15-11.*
 
 - Check the air cleaner body, cover, and packing for deformation, corrosion, or damage.
 - Check the air ducts for damage or splits — this is where a perished 30-year-old hose usually gives itself away.

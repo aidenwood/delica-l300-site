@@ -23,6 +23,9 @@ Disconnecting the sway bar is also the key clearance step for [front ball joint 
 
 ## Removal steps
 
+![Factory manual exploded diagram — stabilizer bar, page 33-34](/images/guides/stabilizer-bar/manual-33-34-stabilizer-bar.jpg)
+*Factory service manual (PWWE8608), page 33-34.*
+
 1. Remove the under skid plate and under cover.
 2. Remove the self-locking nut (non-reusable — fit a new one on reinstall).
 3. Remove the bolt.

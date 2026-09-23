@@ -23,12 +23,18 @@ Getting the lower control arm off the vehicle is the [ball joint replacement](/g
 
 ## Front bushing — vehicles built up to September 1988
 
+![Factory manual diagram — front bushing remove/press tooling, page 33-26](/images/guides/lower-arm-bushings/manual-33-26-bushing-remove-press.jpg)
+*Factory service manual (PWWE8608), page 33-26.*
+
 1. Use the special tool (MB991183 / MB990883) to remove the front bushing.
 2. Press the new front bushing in with the special tool until the bushing's outer cylinder face sits level with the lower arm pipe.
 
 ## Front bushing — vehicles built from October 1988
 
 Different technique — the bushing has a flange that needs cutting away first, then it's pulled rather than pressed straight out.
+
+![Factory manual diagram — bushing pull-out and press-in tooling, page 33-27](/images/guides/lower-arm-bushings/manual-33-27-bushing-pullout-pressin.jpg)
+*Factory service manual (PWWE8608), page 33-27 — steps 3–6, press-in and bushing-ring removal.*
 
 **Pull-out:**
 1. Using a knife, cut away the flange of the bushing.
@@ -44,6 +50,9 @@ Different technique — the bushing has a flange that needs cutting away first, 
 6. **Check the front/rear projection of the bushing's inner cylinder is even**, and that the bushing sits in the correct direction. The difference in projection front-to-rear must be within **1 mm**.
 
 ## Rear bushing
+
+![Factory manual diagram — rear bushing remove/press tooling, page 33-27-1](/images/guides/lower-arm-bushings/manual-33-27-1-rear-bushing.jpg)
+*Factory service manual (PWWE8608), page 33-27-1.*
 
 1. Use the special tool (MB990883) to remove the rear bushing.
 2. Apply a soap-and-water solution to the peripheral surface of the new rear bushing.

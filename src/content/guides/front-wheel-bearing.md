@@ -30,6 +30,9 @@ Removing the caliper is part of this job — do it with the brake hose still con
 
 ## Removal steps
 
+![Factory manual exploded diagram — axle hub and free-wheeling hub, page 26-26](/images/guides/front-wheel-bearing/manual-26-26-hub-exploded.jpg)
+*Factory service manual (PWWE8608), page 26-26.*
+
 1. Set the free-wheeling hub to the free condition (shift the transfer to 2H, reverse 1–2 m), then remove the hub cover — use an oil filter wrench with a protective cloth if it won't loosen by hand.
 2. Remove the snap ring from the drive shaft.
 3. Remove the shim.
@@ -49,6 +52,9 @@ Removing the caliper is part of this job — do it with the brake hose still con
 - Check there's still grease in the inner front hub.
 
 ## Bearing replacement (hub disassembly)
+
+![Factory manual diagram — brake disc removal and bearing outer race press tooling, page 26-31](/images/guides/front-wheel-bearing/manual-26-31-bearing-replacement.jpg)
+*Factory service manual (PWWE8608), page 26-31.*
 
 1. Remove the oil seal.
 2. Wipe the old grease out of the hub interior.
@@ -79,6 +85,9 @@ This isn't a single torque value — it's a tighten/loosen/retighten sequence, t
 - Re-measure turning resistance after fitting the free-wheeling hub and subtract the reading you took before fitting it — that difference is the free-wheeling hub's own turning resistance. Limit: **1 Nm** (spring scale 14 N). Over that, pull it back apart and reassemble.
 
 ## Drive shaft axial play
+
+![Factory manual diagram — dial gauge setup for drive shaft axial play, page 26-30](/images/guides/front-wheel-bearing/manual-26-30-axial-play-disassembly.jpg)
+*Factory service manual (PWWE8608), page 26-30.*
 
 After the shim and snap ring go back on: rotate the drive shaft forward and back to find the position where it feels "heaviest" for each direction, set it midway between those two points, then measure axial play with a dial gauge. Standard value is **0.4–0.7 mm** — add or remove shims to bring it into range.
 
