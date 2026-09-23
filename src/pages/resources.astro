@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Resources"
+  description="External parts catalogs, official manuals, and community sources for the Mitsubishi Delica Star Wagon / L300."
+>
+  <h1 class="text-3xl font-bold text-stone-50 mb-6">Resources</h1>
+
+  <section class="mb-8">
+    <h2 class="text-lg font-semibold text-amber-400 mb-2">Official parts catalog search</h2>
+    <p class="text-stone-400 mb-2">
+      <a href="https://mitsubishi.epc-data.com/delica_star_wagon/" class="text-amber-400 hover:underline" target="_blank" rel="noopener">
+        mitsubishi.epc-data.com/delica_star_wagon
+      </a>
+    </p>
+    <p class="text-sm text-stone-500">Electronic parts catalog (EPC) diagrams and part numbers by assembly.</p>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-lg font-semibold text-amber-400 mb-2">DelicaUSA</h2>
+    <p class="text-stone-400 mb-2">
+      <a href="https://www.delicausa.com/fullwidth-page/" class="text-amber-400 hover:underline" target="_blank" rel="noopener">
+        delicausa.com
+      </a>
+    </p>
+    <p class="text-sm text-stone-500">
+      Philadelphia-based Delica/L300/L400/Pajero specialist. Downloadable factory service manuals,
+      parts cross-reference lists by system (filters, belts, shocks, ball joints) with multiple brand
+      options, wiring diagrams, and their own community forum.
+    </p>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-lg font-semibold text-amber-400 mb-2">Factory service manual (source for this site's guides)</h2>
+    <p class="text-stone-400 mb-2">Mitsubishi document PWWE8608 — combined manual covering 2WD and 4WD variants.</p>
+    <p class="text-sm text-stone-500">The full manual (180MB+ scan) is kept locally, not redistributed here. Individual diagram pages are excerpted inline on the relevant guides where useful, each captioned with its manual page number — every guide also cites the exact section and page range it was converted from.</p>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-lg font-semibold text-amber-400 mb-2">Steering rack — refurb/sourcing links</h2>
+    <p class="text-stone-400 mb-2 text-sm">
+      The R&R procedure, torque specs, and the rebuild-vs-replace backlash spec are now a proper guide:
+      <a href="/guides/steering-rack" class="text-amber-400 hover:underline">Power Steering Gear Box (Rack)</a>.
+      These forum threads are sourcing/refurb options the factory manual doesn't cover.
+    </p>
+    <ul class="text-sm text-stone-400 space-y-1 list-disc list-inside mb-3">
+      <li><a href="https://delicaforum.com/index.php?threads/replacing-rack-and-pinion.5778/" class="text-amber-400 hover:underline" target="_blank" rel="noopener">Delica Forum — replacing rack and pinion (mega thread)</a></li>
+      <li><a href="https://delicaforum.com/index.php?threads/l300-2wd-power-steering-rack-from-alibaba-into-l300-4wd.6391/" class="text-amber-400 hover:underline" target="_blank" rel="noopener">2WD rack (Alibaba) fitted with 4WD ends, into a 4WD L300</a></li>
+      <li><a href="https://delicaforum.com/index.php?threads/an-easy-way-to-improve-steering.5350/" class="text-amber-400 hover:underline" target="_blank" rel="noopener">"Spin 180°, re-engage teeth" refurb trick</a></li>
+      <li><a href="https://delicaforum.com/index.php?threads/rebuilding-a-power-steering-rack.784/" class="text-amber-400 hover:underline" target="_blank" rel="noopener">Rebuilding a power steering rack (forum)</a></li>
+    </ul>
+    <p class="text-sm text-stone-500">
+      Part numbers seen: 2WD rack <strong>MB351502</strong>, 4WD rack <strong>MB351852</strong> (also referenced as
+      4410A670). Bearing replacement kit: <strong>MN103497</strong>. New replacement rack pricing seen ranging
+      ~$455 (NZ) to ~$872 (US) depending on source — not verified against AU shipping/duty.
+    </p>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-lg font-semibold text-amber-400 mb-2">Delica Forum</h2>
+    <p class="text-stone-400 mb-2">Community knowledge that fills the gaps the factory manual leaves out — real owners hitting real clearance/tooling problems the manual doesn't mention.</p>
+    <p class="text-sm text-stone-500">
+      Archived source for the ball joint guide's field notes:
+      <a href="/references/lower-ball-joint-questions-forum-thread.pdf" class="text-amber-400 hover:underline">
+        "Lower Ball Joint Questions" thread (PDF)
+      </a>.
+    </p>
+  </section>
+</Layout>

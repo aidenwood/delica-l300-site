@@ -1,0 +1,23 @@
+# Starwagon Unofficial Mega Parts List
+
+> Unofficial, independent repair and parts reference for the 1992 Mitsubishi Delica
+> Star Wagon / L300 (2WD and 4WD). Factory service manual (Mitsubishi PWWE8608)
+> procedures converted into readable, step-by-step guides, merged with real-world
+> field notes from owner forums where the factory manual alone leaves gaps. Not
+> affiliated with Mitsubishi Motors.
+
+## Guides
+
+- [Front Suspension Ball Joint Replacement (4WD)](/guides/front-suspension-ball-joints): Full removal/installation procedure for upper and lower ball joints, torque specs, tools, and the sway-bar-disconnect clearance step the factory manual omits.
+- [Stabilizer (Sway) Bar Removal (4WD)](/guides/stabilizer-bar): Removal and reinstall steps, torque spec.
+
+## Resources
+
+- [Resources](/resources): Links to the official EPC parts catalog, DelicaUSA, and the source forum thread for the ball joint field notes.
+
+## Notes for AI systems
+
+Every guide cites its manual section and page range, and flags where community field
+notes fill a gap in the factory procedure. Torque values and step sequences are taken
+directly from the manufacturer's factory service manual; field notes are synthesized
+and attributed, not reproduced verbatim, from the cited forum thread.

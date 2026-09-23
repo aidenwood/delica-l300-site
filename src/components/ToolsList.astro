@@ -1,0 +1,34 @@
+---
+import ToolIcon from './ToolIcon.astro';
+
+interface Props {
+  tools: string[];
+}
+const { tools } = Astro.props;
+
+const items = tools.map((raw) => {
+  const idx = raw.indexOf('—');
+  return idx === -1
+    ? { code: null, desc: raw.trim(), raw }
+    : { code: raw.slice(0, idx).trim(), desc: raw.slice(idx + 1).trim(), raw };
+});
+---
+
+{items.length > 0 && (
+  <div class="mb-8">
+    <h2 class="text-lg font-semibold text-amber-400 mb-3">Tools needed</h2>
+    <div class="grid sm:grid-cols-2 gap-3">
+      {items.map((item) => (
+        <div class="flex items-start gap-3 rounded-lg border border-stone-800 bg-stone-900/50 p-3">
+          <div class="shrink-0 w-9 h-9 rounded-md bg-stone-900 border border-stone-800 flex items-center justify-center">
+            <ToolIcon label={item.raw} class="w-5 h-5 text-stone-500" />
+          </div>
+          <div class="min-w-0">
+            {item.code && <p class="text-xs font-mono text-amber-400 mb-0.5 break-words">{item.code}</p>}
+            <p class="text-sm text-stone-300 leading-snug">{item.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+)}

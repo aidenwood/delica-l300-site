@@ -1,0 +1,134 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import SystemIcon from '../components/SystemIcon.astro';
+
+const guides = (await getCollection('guides')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const groups = new Map<string, typeof guides>();
+for (const g of guides) {
+  const list = groups.get(g.data.group) ?? [];
+  list.push(g);
+  groups.set(g.data.group, list);
+}
+
+const guideById = new Map(guides.map((g) => [g.id, g]));
+
+// Fix-list coverage — is each real-world job actually documented on the site yet?
+const coverage = [
+  { item: 'Front suspension (ball joints, bushings, sway bar)', status: 'covered', guides: ['front-suspension-ball-joints', 'lower-arm-bushings', 'stabilizer-bar'] },
+  { item: 'Rear suspension', status: 'todo' },
+  { item: 'Front brakes (pads/disc)', status: 'todo' },
+  { item: 'Rear brakes (drum shoes)', status: 'covered', guides: ['rear-brake-shoes'] },
+  { item: 'Air intake hose / air cleaner', status: 'covered', guides: ['air-cleaner-diesel'] },
+  { item: 'Front wheel bearing', status: 'covered', guides: ['front-wheel-bearing'] },
+  { item: 'Radiator', status: 'covered', guides: ['radiator-replacement'] },
+  { item: 'Steering rack', status: 'covered', guides: ['steering-rack'] },
+] as const;
+
+const statusStyle = {
+  covered: 'text-emerald-400 border-emerald-900 bg-emerald-950/40',
+  partial: 'text-amber-400 border-amber-900 bg-amber-950/40',
+  todo: 'text-stone-500 border-stone-800 bg-stone-900/40',
+};
+const statusLabel = { covered: 'Covered', partial: 'Partial', todo: 'Not yet' };
+
+const quickLinks = [
+  { label: 'Official parts catalog (EPC)', href: 'https://mitsubishi.epc-data.com/delica_star_wagon/' },
+  { label: 'DelicaUSA', href: 'https://www.delicausa.com/fullwidth-page/' },
+  { label: 'Ball joint mega-thread', href: 'https://delicaforum.com/index.php?threads/lower-ball-joint-questions.2883/' },
+  { label: 'Front axle removal (alt. method)', href: 'https://delicaforum.com/index.php?threads/removing-the-front-axle-an-easier-way.761/' },
+];
+---
+
+<Layout
+  title="1992 Mitsubishi Delica Starwagon"
+  description="Unofficial, community-built repair and parts reference for the Mitsubishi Delica Star Wagon / L300 — factory manual procedures converted into readable, searchable guides, cross-checked against real owner rebuilds."
+>
+  <section class="flex items-center gap-4 mb-4">
+    <img
+      src="/images/delica-and-land-cruiser.jpg"
+      alt="1992 Mitsubishi Delica Star Wagon (4WD)"
+      class="w-16 h-16 sm:w-20 sm:h-20 rounded-lg object-cover border border-stone-800 shrink-0"
+    />
+    <div class="min-w-0">
+      <h1 class="text-2xl sm:text-3xl font-bold text-stone-50 leading-tight">Starwagon Unofficial Mega Parts List</h1>
+      <p class="text-sm text-stone-500">1992 Delica Star Wagon (L300) · 4WD · Diesel 4D56 — built by a developer, not a mechanic. My friend does the wrenching; this is the finding, verifying and organising.</p>
+    </div>
+  </section>
+
+  <section class="grid grid-cols-3 gap-2 mb-6 text-center">
+    <div class="rounded-lg border border-stone-800 bg-stone-900/50 py-2">
+      <p class="text-xl font-bold text-amber-400 leading-none">{guides.length}</p>
+      <p class="text-[11px] text-stone-500 uppercase tracking-wide mt-1">Guides</p>
+    </div>
+    <div class="rounded-lg border border-stone-800 bg-stone-900/50 py-2">
+      <p class="text-xl font-bold text-amber-400 leading-none">{groups.size}</p>
+      <p class="text-[11px] text-stone-500 uppercase tracking-wide mt-1">Systems</p>
+    </div>
+    <div class="rounded-lg border border-stone-800 bg-stone-900/50 py-2">
+      <p class="text-xl font-bold text-amber-400 leading-none">3</p>
+      <p class="text-[11px] text-stone-500 uppercase tracking-wide mt-1">Sources</p>
+    </div>
+  </section>
+
+  <section class="mb-6 flex flex-wrap gap-2">
+    {quickLinks.map((l) => (
+      <a href={l.href} target="_blank" rel="noopener" class="text-xs px-3 py-1.5 rounded-full border border-stone-800 bg-stone-900/50 text-stone-400 hover:border-amber-500/50 hover:text-amber-400 transition-colors">
+        {l.label} ↗
+      </a>
+    ))}
+    <a href="/resources" class="text-xs px-3 py-1.5 rounded-full border border-amber-900 bg-amber-950/30 text-amber-400 hover:bg-amber-950/50 transition-colors">
+      All resources + manual downloads →
+    </a>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-xs font-semibold text-stone-500 uppercase tracking-wide mb-3">Guides by system</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+      {[...groups.entries()].flatMap(([group, items]) =>
+        items.map((guide, idx) => (
+          <a
+            href={`/guides/${guide.id}`}
+            class="group flex flex-col gap-2 rounded-xl border border-stone-800 bg-stone-900/50 p-3 hover:border-amber-500/50 hover:bg-stone-900 transition-colors"
+          >
+            <div class="flex items-start justify-between">
+              <SystemIcon name={group} class="w-7 h-7 text-stone-600 group-hover:text-amber-400 transition-colors" />
+              {idx === 0 && <span class="text-[9px] text-stone-600 uppercase tracking-wide mt-1">{group}</span>}
+            </div>
+            <p class="text-xs font-medium text-stone-200 leading-snug">{guide.data.title}</p>
+            <p class="text-[10px] text-stone-600 mt-auto">{guide.data.manualPages.split('(')[0].trim()}</p>
+          </a>
+        ))
+      )}
+    </div>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-xs font-semibold text-stone-500 uppercase tracking-wide mb-3">Fix-list coverage — what's actually documented</h2>
+    <ul class="rounded-lg border border-stone-800 divide-y divide-stone-900 overflow-hidden">
+      {coverage.map((c) => (
+        <li class="flex items-center justify-between gap-3 px-3 py-2">
+          <span class="text-sm text-stone-300">{c.item}</span>
+          <span class="flex items-center gap-2 shrink-0">
+            {'guides' in c && c.guides.map((id) => {
+              const g = guideById.get(id);
+              return g ? (
+                <a href={`/guides/${id}`} class="text-[10px] text-stone-500 hover:text-amber-400 underline decoration-dotted hidden sm:inline">
+                  {g.data.title.split('(')[0].trim()}
+                </a>
+              ) : null;
+            })}
+            <span class={`text-[10px] px-2 py-0.5 rounded-full border ${statusStyle[c.status]}`}>{statusLabel[c.status]}</span>
+          </span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <p class="text-xs text-stone-600 border-t border-stone-900 pt-4">
+    Roadmap: more guides (rear suspension, front brakes) · embedded EPC catalog search ·
+    eventually a proper successor to the Delica forums · a chatbot scoped to this site's content.
+    See <a href="/resources" class="text-amber-400 hover:underline">Resources</a> for the full external link list and manual downloads.
+  </p>
+</Layout>

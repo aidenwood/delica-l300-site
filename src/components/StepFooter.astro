@@ -1,0 +1,97 @@
+---
+interface Step {
+  id: string;
+  label: string;
+  required: boolean;
+  note?: string;
+}
+interface Props {
+  slug: string;
+  steps: Step[];
+}
+const { slug, steps } = Astro.props;
+const required = steps.filter((s) => s.required);
+---
+
+{steps.length > 0 && (
+  <div
+    data-step-footer
+    class="hidden fixed bottom-0 inset-x-0 z-30 border-t border-amber-900/50 bg-stone-950/95 backdrop-blur supports-[backdrop-filter]:bg-stone-950/80"
+  >
+    <div class="mx-auto max-w-5xl px-6 py-3 flex items-center gap-4">
+      <button
+        data-step-footer-check
+        class="shrink-0 w-6 h-6 rounded-md border border-stone-700 hover:border-amber-500 flex items-center justify-center text-amber-400 transition-colors"
+        aria-label="Mark next step done"
+      >
+        <svg viewBox="0 0 20 20" fill="none" class="w-3.5 h-3.5" stroke="currentColor" stroke-width="2">
+          <path d="M4 10l4 4 8-8" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+      <p class="text-sm text-stone-300 min-w-0 truncate">
+        <span class="text-stone-500">Next:</span> <span data-step-footer-next>{required[0]?.label}</span>
+      </p>
+      <button data-step-footer-dismiss class="ml-auto shrink-0 text-stone-500 hover:text-stone-300 text-lg leading-none" aria-label="Hide">
+        ✕
+      </button>
+    </div>
+  </div>
+
+  <script define:vars={{ slug, steps }}>
+    const KEY = `delica:steps:${slug}`;
+    const DISMISS_KEY = `delica:steps-footer-dismissed:${slug}`;
+    const required = steps.filter((s) => s.required);
+    const bar = document.querySelector('[data-step-footer]');
+    const checkBtn = document.querySelector('[data-step-footer-check]');
+    const dismissBtn = document.querySelector('[data-step-footer-dismiss]');
+
+    function loadDone() {
+      try {
+        return new Set(JSON.parse(localStorage.getItem(KEY) || '[]'));
+      } catch {
+        return new Set();
+      }
+    }
+
+    function saveDone(done) {
+      localStorage.setItem(KEY, JSON.stringify([...done]));
+      window.dispatchEvent(new CustomEvent('steps-updated', { detail: { slug } }));
+    }
+
+    function render() {
+      if (!bar) return;
+      if (sessionStorage.getItem(DISMISS_KEY)) {
+        bar.classList.add('hidden');
+        return;
+      }
+      const done = loadDone();
+      const next = required.find((s) => !done.has(s.id));
+      if (!next) {
+        bar.classList.add('hidden');
+        return;
+      }
+      bar.classList.remove('hidden');
+      const label = bar.querySelector('[data-step-footer-next]');
+      if (label) label.textContent = next.label;
+      bar.dataset.currentStep = next.id;
+    }
+
+    checkBtn?.addEventListener('click', () => {
+      const id = bar?.dataset.currentStep;
+      if (!id) return;
+      const done = loadDone();
+      done.add(id);
+      saveDone(done);
+    });
+
+    dismissBtn?.addEventListener('click', () => {
+      sessionStorage.setItem(DISMISS_KEY, '1');
+      bar?.classList.add('hidden');
+    });
+
+    render();
+    window.addEventListener('steps-updated', (e) => {
+      if (e.detail?.slug === slug) render();
+    });
+  </script>
+)}

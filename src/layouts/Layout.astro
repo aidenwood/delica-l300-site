@@ -1,0 +1,44 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title} — Starwagon Unofficial Mega Parts List</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="bg-stone-950 text-stone-200 font-sans antialiased">
+    <header class="border-b border-stone-800">
+      <div class="mx-auto max-w-5xl px-6 py-4 flex items-center justify-between">
+        <a href="/" class="flex items-baseline gap-2">
+          <span class="text-lg font-bold tracking-tight text-amber-400">L300 / Delica</span>
+          <span class="text-sm text-stone-500">Unofficial Mega Parts List</span>
+        </a>
+        <nav class="text-sm text-stone-400 flex gap-4">
+          <a href="/" class="hover:text-amber-400">Guides</a>
+          <a href="/resources" class="hover:text-amber-400">Resources</a>
+        </nav>
+      </div>
+    </header>
+    <main class="mx-auto max-w-5xl px-6 py-10">
+      <slot />
+    </main>
+    <footer class="border-t border-stone-800 mt-16">
+      <div class="mx-auto max-w-5xl px-6 py-8 text-sm text-stone-500">
+        <p>Independent, unofficial resource for the Mitsubishi Delica Star Wagon / L300. Not affiliated with Mitsubishi Motors.</p>
+        <p class="mt-1">Content converted from the factory service manual and community sources, with citations on every guide.</p>
+      </div>
+    </footer>
+  </body>
+</html>

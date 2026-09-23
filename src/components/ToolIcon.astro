@@ -1,0 +1,122 @@
+---
+interface Props {
+  label: string;
+  class?: string;
+}
+const { label, class: klass = 'w-7 h-7' } = Astro.props;
+const l = label.toLowerCase();
+
+function matches(...needles: string[]) {
+  return needles.some((n) => l.includes(n));
+}
+
+const category = matches('puller')
+  ? 'puller'
+  : matches('snap ring', 'circlip')
+    ? 'snap-ring'
+    : matches('torque wrench')
+      ? 'torque-wrench'
+      : matches('bushing')
+        ? 'bushing'
+        : matches('oil seal', 'seal installer')
+          ? 'seal'
+          : matches('gauge')
+            ? 'gauge'
+            : matches('pliers')
+              ? 'pliers'
+              : matches('spring')
+                ? 'spring'
+                : matches('hub removal', 'free-wheeling hub', 'hub')
+                  ? 'hub'
+                  : matches('drain pan', ' pan')
+                    ? 'pan'
+                    : matches('socket')
+                      ? 'socket'
+                      : matches('bolt')
+                        ? 'bolt'
+                        : 'wrench';
+---
+
+{category === 'puller' && (
+  <svg viewBox="0 0 32 32" fill="none" class={klass} stroke="currentColor" stroke-width="1.5">
+    <path d="M16 4v9" stroke-linecap="round" />
+    <path d="M16 13c-5 0-8 4-8 9M16 13c5 0 8 4 8 9" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M8 22l-2 4M24 22l2 4" stroke-linecap="round" />
+    <circle cx="16" cy="4" r="2" />
+  </svg>
+)}
+{category === 'snap-ring' && (
+  <svg viewBox="0 0 32 32" fill="none" class={klass} stroke="currentColor" stroke-width="1.5">
+    <path d="M23 16a7 7 0 11-2-4.9" stroke-linecap="round" />
+    <path d="M25 8v5h-5" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M6 16H3M6 16l3-3M6 16l3 3" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+)}
+{category === 'torque-wrench' && (
+  <svg viewBox="0 0 32 32" fill="none" class={klass} stroke="currentColor" stroke-width="1.5">
+    <circle cx="9" cy="16" r="5" />
+    <path d="M14 16h13M23 12v8" stroke-linecap="round" />
+    <path d="M9 13.5v5" stroke-linecap="round" />
+  </svg>
+)}
+{category === 'bushing' && (
+  <svg viewBox="0 0 32 32" fill="none" class={klass} stroke="currentColor" stroke-width="1.5">
+    <circle cx="16" cy="16" r="10" />
+    <circle cx="16" cy="16" r="5" />
+  </svg>
+)}
+{category === 'seal' && (
+  <svg viewBox="0 0 32 32" fill="none" class={klass} stroke="currentColor" stroke-width="1.5">
+    <circle cx="16" cy="16" r="10" />
+    <circle cx="16" cy="16" r="5" stroke-dasharray="2 2" />
+  </svg>
+)}
+{category === 'gauge' && (
+  <svg viewBox="0 0 32 32" fill="none" class={klass} stroke="currentColor" stroke-width="1.5">
+    <circle cx="16" cy="17" r="9" />
+    <path d="M16 17l4-5" stroke-linecap="round" />
+    <path d="M16 8v1.5M9 17H7.5M24.5 17H23" stroke-linecap="round" />
+  </svg>
+)}
+{category === 'pliers' && (
+  <svg viewBox="0 0 32 32" fill="none" class={klass} stroke="currentColor" stroke-width="1.5">
+    <path d="M11 4L21 20" stroke-linecap="round" />
+    <path d="M21 4L11 20" stroke-linecap="round" />
+    <path d="M16 12l-6 16M16 12l6 16" stroke-linecap="round" />
+    <circle cx="16" cy="12" r="1.6" fill="currentColor" stroke="none" />
+  </svg>
+)}
+{category === 'spring' && (
+  <svg viewBox="0 0 32 32" fill="none" class={klass} stroke="currentColor" stroke-width="1.5">
+    <path d="M16 3v4M11 9l10-2M11 13l10-2M11 17l10-2M11 21l10-2M16 25v4" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+)}
+{category === 'hub' && (
+  <svg viewBox="0 0 32 32" fill="none" class={klass} stroke="currentColor" stroke-width="1.5">
+    <path d="M16 4l9 5v14l-9 5-9-5V9z" stroke-linejoin="round" />
+    <circle cx="16" cy="16" r="4" />
+  </svg>
+)}
+{category === 'pan' && (
+  <svg viewBox="0 0 32 32" fill="none" class={klass} stroke="currentColor" stroke-width="1.5">
+    <path d="M5 13h22l-3 12H8z" stroke-linejoin="round" />
+    <path d="M9 13V9a2 2 0 012-2h10a2 2 0 012 2v4" />
+  </svg>
+)}
+{category === 'socket' && (
+  <svg viewBox="0 0 32 32" fill="none" class={klass} stroke="currentColor" stroke-width="1.5">
+    <path d="M16 4l10 5.5v13L16 28 6 22.5v-13z" stroke-linejoin="round" />
+    <circle cx="16" cy="16" r="5" />
+  </svg>
+)}
+{category === 'bolt' && (
+  <svg viewBox="0 0 32 32" fill="none" class={klass} stroke="currentColor" stroke-width="1.5">
+    <path d="M11 5h10v6l-2.5 2.5v13h-5v-13L11 11z" stroke-linejoin="round" />
+    <path d="M11 8h10" />
+  </svg>
+)}
+{category === 'wrench' && (
+  <svg viewBox="0 0 32 32" fill="none" class={klass} stroke="currentColor" stroke-width="1.5">
+    <path d="M21 5a5 5 0 00-6.9 5.8L6 19v4h4l8.2-8.2A5 5 0 0026 9l-3.8 3.8-2-2L24 7" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+)}

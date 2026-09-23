@@ -1,0 +1,290 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+interface Step {
+  id: string;
+  label: string;
+  required: boolean;
+  note?: string;
+}
+interface Props {
+  headings: Heading[];
+  steps?: Step[];
+  slug?: string;
+}
+const { headings, steps = [], slug = '' } = Astro.props;
+const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
+
+interface Section {
+  slug: string;
+  text: string;
+  children: Heading[];
+}
+const sections: Section[] = [];
+for (const h of items) {
+  if (h.depth === 2) {
+    sections.push({ slug: h.slug, text: h.text, children: [] });
+  } else if (sections.length > 0) {
+    sections[sections.length - 1].children.push(h);
+  }
+}
+---
+
+{(items.length > 0 || steps.length > 0) && (
+  <>
+    <nav aria-label="On this page" class="hidden lg:block sticky top-8 self-start w-64 shrink-0">
+      {steps.length > 0 && (
+        <div class="mb-6 pb-6 border-b border-stone-800">
+          <p class="text-xs uppercase tracking-wide text-stone-500 mb-3 font-semibold">Checklist</p>
+          <ul class="space-y-2 text-sm">
+            {steps.map((s) => (
+              <li class="flex items-start gap-2">
+                <input
+                  type="checkbox"
+                  data-step-checkbox
+                  data-id={s.id}
+                  class="mt-0.5 shrink-0 w-3.5 h-3.5 rounded border-stone-700 bg-stone-900 accent-amber-500"
+                />
+                <span class="min-w-0">
+                  <span data-step-label class="text-stone-400">{s.label}</span>
+                  {!s.required && <span class="ml-1 text-[10px] text-stone-600 uppercase tracking-wide">optional</span>}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <p class="text-xs uppercase tracking-wide text-stone-500 mb-3 font-semibold">On this page</p>
+      <div class="relative pl-3">
+        <div class="absolute left-0 top-0 bottom-0 w-px bg-stone-800"></div>
+        <span id="toc-indicator" class="absolute left-0 w-0.5 bg-amber-400 rounded-full transition-[top,height] duration-300 ease-out" style="top: 0; height: 0;"></span>
+        <ul class="space-y-1 text-sm">
+          {sections.map((s) => (
+            <li>
+              <a href={`#${s.slug}`} data-slug={s.slug} class="toc-link block py-1 text-stone-400 hover:text-amber-400 transition-colors">
+                {s.text}
+              </a>
+              {s.children.length > 0 && (
+                <div class="toc-subwrap grid" data-parent={s.slug}>
+                  <ul class="overflow-hidden space-y-1">
+                    {s.children.map((c) => (
+                      <li>
+                        <a href={`#${c.slug}`} data-slug={c.slug} class="toc-link block pl-4 py-1 text-stone-500 hover:text-amber-400 transition-colors">
+                          {c.text}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+
+    <button
+      id="toc-toggle"
+      class="lg:hidden fixed bottom-6 right-6 z-40 rounded-full bg-amber-500 text-stone-950 w-14 h-14 shadow-lg shadow-black/40 flex items-center justify-center text-xl font-semibold active:scale-95 transition-transform"
+      aria-label="Open page contents"
+      aria-controls="toc-drawer"
+      aria-expanded="false"
+    >
+      ☰
+    </button>
+    <div id="toc-backdrop" class="lg:hidden fixed inset-0 bg-black/60 z-40 hidden" aria-hidden="true"></div>
+    <aside
+      id="toc-drawer"
+      class="lg:hidden fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-stone-950 border-l border-stone-800 z-50 translate-x-full transition-transform duration-300 ease-out overflow-y-auto p-6"
+    >
+      <div class="flex items-center justify-between mb-6">
+        <p class="text-sm font-semibold text-stone-200">On this page</p>
+        <button id="toc-close" class="text-stone-400 hover:text-stone-200 text-xl leading-none" aria-label="Close page contents">✕</button>
+      </div>
+
+      {steps.length > 0 && (
+        <div class="mb-6 pb-6 border-b border-stone-800">
+          <p class="text-xs uppercase tracking-wide text-stone-500 mb-3 font-semibold">Checklist</p>
+          <ul class="space-y-3 text-sm">
+            {steps.map((s) => (
+              <li class="flex items-start gap-2">
+                <input
+                  type="checkbox"
+                  data-step-checkbox
+                  data-id={s.id}
+                  class="mt-0.5 shrink-0 w-4 h-4 rounded border-stone-700 bg-stone-900 accent-amber-500"
+                />
+                <span class="min-w-0">
+                  <span data-step-label class="text-stone-300">{s.label}</span>
+                  {!s.required && <span class="ml-1 text-[10px] text-stone-600 uppercase tracking-wide">optional</span>}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <ul class="space-y-4 text-sm">
+        {items.map((h) => (
+          <li class={h.depth === 3 ? 'pl-4' : ''}>
+            <a href={`#${h.slug}`} data-slug={h.slug} class="toc-link block text-stone-300 hover:text-amber-400">{h.text}</a>
+          </li>
+        ))}
+      </ul>
+    </aside>
+
+    <style>
+      .toc-subwrap {
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 300ms ease;
+      }
+      .toc-subwrap.is-open {
+        grid-template-rows: 1fr;
+      }
+      .toc-link[aria-current='true'] {
+        color: var(--color-amber-400);
+      }
+    </style>
+
+    <script>
+      const toggle = document.getElementById('toc-toggle');
+      const drawer = document.getElementById('toc-drawer');
+      const backdrop = document.getElementById('toc-backdrop');
+      const closeBtn = document.getElementById('toc-close');
+      const links = document.querySelectorAll<HTMLAnchorElement>('.toc-link');
+
+      function openDrawer() {
+        drawer?.classList.remove('translate-x-full');
+        backdrop?.classList.remove('hidden');
+        toggle?.setAttribute('aria-expanded', 'true');
+      }
+      function closeDrawer() {
+        drawer?.classList.add('translate-x-full');
+        backdrop?.classList.add('hidden');
+        toggle?.setAttribute('aria-expanded', 'false');
+      }
+      toggle?.addEventListener('click', openDrawer);
+      closeBtn?.addEventListener('click', closeDrawer);
+      backdrop?.addEventListener('click', closeDrawer);
+      links.forEach((l) => l.addEventListener('click', closeDrawer));
+    </script>
+
+    <script>
+      const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('.toc-link'));
+      const subwraps = Array.from(document.querySelectorAll<HTMLElement>('.toc-subwrap'));
+      const indicator = document.getElementById('toc-indicator');
+      const track = indicator?.parentElement ?? null;
+
+      const headingEls = navLinks
+        .map((l) => document.getElementById(l.dataset.slug ?? ''))
+        .filter((el): el is HTMLElement => !!el)
+        // dedupe (desktop + mobile nav both reference the same heading ids)
+        .filter((el, i, arr) => arr.indexOf(el) === i);
+
+      function moveIndicator(activeLink: HTMLAnchorElement | undefined) {
+        if (!activeLink || !indicator || !track) return;
+        const trackRect = track.getBoundingClientRect();
+        const linkRect = activeLink.getBoundingClientRect();
+        indicator.style.top = `${linkRect.top - trackRect.top}px`;
+        indicator.style.height = `${linkRect.height}px`;
+      }
+
+      let currentSlug = '';
+
+      function setActive(slug: string) {
+        if (slug === currentSlug) return;
+        currentSlug = slug;
+
+        navLinks.forEach((l) => {
+          l.setAttribute('aria-current', l.dataset.slug === slug ? 'true' : 'false');
+        });
+
+        subwraps.forEach((wrap) => {
+          const parentSlug = wrap.dataset.parent;
+          const childSlugs = Array.from(wrap.querySelectorAll<HTMLAnchorElement>('.toc-link')).map((a) => a.dataset.slug);
+          wrap.classList.toggle('is-open', parentSlug === slug || childSlugs.includes(slug));
+        });
+
+        const desktopActive = navLinks.find((l) => l.dataset.slug === slug && l.closest('nav[aria-label="On this page"]'));
+        moveIndicator(desktopActive);
+      }
+
+      const ACTIVE_LINE = 120; // px from viewport top that counts as "current"
+
+      function updateActiveFromScroll() {
+        let current = headingEls[0];
+        for (const el of headingEls) {
+          if (el.getBoundingClientRect().top - ACTIVE_LINE <= 0) {
+            current = el;
+          } else {
+            break;
+          }
+        }
+        if (current) setActive(current.id);
+      }
+
+      let ticking = false;
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          updateActiveFromScroll();
+          ticking = false;
+        });
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', updateActiveFromScroll);
+      updateActiveFromScroll();
+    </script>
+
+    {steps.length > 0 && (
+      <script define:vars={{ slug }}>
+        const KEY = `delica:steps:${slug}`;
+        const boxes = Array.from(document.querySelectorAll('[data-step-checkbox]'));
+
+        function loadDone() {
+          try {
+            return new Set(JSON.parse(localStorage.getItem(KEY) || '[]'));
+          } catch {
+            return new Set();
+          }
+        }
+
+        function saveDone(done) {
+          localStorage.setItem(KEY, JSON.stringify([...done]));
+          window.dispatchEvent(new CustomEvent('steps-updated', { detail: { slug } }));
+        }
+
+        function sync() {
+          const done = loadDone();
+          boxes.forEach((box) => {
+            const checked = done.has(box.dataset.id);
+            box.checked = checked;
+            const label = box.parentElement?.querySelector('[data-step-label]');
+            label?.classList.toggle('line-through', checked);
+            label?.classList.toggle('text-stone-600', checked);
+          });
+        }
+
+        boxes.forEach((box) => {
+          box.addEventListener('change', () => {
+            const done = loadDone();
+            if (box.checked) done.add(box.dataset.id);
+            else done.delete(box.dataset.id);
+            saveDone(done);
+            sync();
+          });
+        });
+
+        sync();
+        window.addEventListener('steps-updated', (e) => {
+          if (e.detail?.slug === slug) sync();
+        });
+      </script>
+    )}
+  </>
+)}
